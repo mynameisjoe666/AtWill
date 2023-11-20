@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>抛物线运动模拟</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById('myCanvas');
+  const context = canvas.getContext('2d');
+
+  // 设置画布的背景颜色
+  context.fillStyle = 'lightgray';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  const initialX = 60; // 初始位置的 x 坐标
+  const initialY = canvas.height - 180; // 初始位置的 y 坐标
+  const targetX = 300; // 目标位置的 x 坐标
+  const targetY = canvas.height - 400; // 目标位置的 y 坐标
+  const gravity = 0.5; // 重力加速度
+
+  let x = initialX;
+  let y = initialY;
+  let velocityX = (targetX - initialX) / 60; // 水平初速度，时间设为60帧
+  let velocityY = -Math.sqrt(2 * gravity * (initialY - targetY)); // 垂直初速度
+
+  function animate() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 设置画布的背景颜色
+    context.fillStyle = 'lightgray';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 更新物体位置和速度
+    x += velocityX;
+    y += velocityY;
+    velocityY += gravity;
+
+    // 绘制物体
+    context.beginPath();
+    context.arc(x, y, 10, 0, Math.PI * 3);
+    context.fillStyle = 'blue';
+    context.fill();
+    context.closePath();
+
+    // 当物体达到目标位置时停止动画
+    if (x >= targetX && y >= targetY) {
+      cancelAnimationFrame(animate);
+    } else {
+      // 继续递归调用实现动画
+      requestAnimationFrame(animate);
+    }
+  }
+
+  animate();
+</script>
+</body>
+</html>

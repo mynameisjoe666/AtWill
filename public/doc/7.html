@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas 绘制星链图</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById('myCanvas');
+  const context = canvas.getContext('2d');
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = 180;
+  const numNodes = 3;
+  const angleIncrement = (Math.PI * 2) / numNodes;
+
+  const colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'yellow', 'brown'];
+
+  context.beginPath();
+  for (let i = 0; i < numNodes; i++) {
+    const angle = i * angleIncrement;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    context.lineTo(x, y);
+
+    // 选择不同颜色并绘制
+    context.strokeStyle = colors[i % colors.length];
+    context.stroke();
+  }
+  context.closePath();
+
+  context.lineWidth = 2;
+  context.stroke();
+//   当您浏览上述代码时，每一行的作用如下：
+//
+// <canvas id="myCanvas" width="400" height="400"></canvas>：创建一个 <canvas> 元素，设置宽度和高度为 400 像素。
+//
+// const canvas = document.getElementById('myCanvas');：获取 <canvas> 元素，将其存储在变量 canvas 中。
+//
+// const context = canvas.getContext('2d');：获取绘图上下文，使用 getContext('2d') 方法获取 2D 绘图上下文，将其存储在变量 context 中。
+//
+// const centerX = canvas.width / 2; 和 const centerY = canvas.height / 2;：计算画布中心的 x 和 y 坐标。
+//
+// const radius = 180;：定义圆的半径。
+//
+// const numNodes = 5;：定义星链图中节点的数量。
+//
+// const angleIncrement = (Math.PI * 2) / numNodes;：计算每个节点之间的角度增量，通过将圆的周长除以节点数量来实现。
+//
+// context.beginPath();：开始绘制新路径。
+//
+// for (let i = 0; i < numNodes; i++) {：开始循环，遍历每个节点。
+//
+// const angle = i * angleIncrement;：计算当前节点对应的角度。
+//
+// const x = centerX + radius * Math.cos(angle);：计算当前节点的 x 坐标，通过半径和角度的余弦计算得到。
+//
+// const y = centerY + radius * Math.sin(angle);：计算当前节点的 y 坐标，通过半径和角度的正弦计算得到。
+//
+// context.lineTo(x, y);：连接当前节点的坐标。
+//
+// context.closePath();：闭合路径，连接最后一个节点和第一个节点。
+//
+// context.strokeStyle = 'blue';：设置描边颜色为蓝色。
+//
+// context.lineWidth = 2;：设置描边线条宽度为 2 像素。
+//
+// context.stroke();：绘制描边线条。
+</script>
+</body>
+</html>

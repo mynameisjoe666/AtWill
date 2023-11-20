@@ -1,0 +1,514 @@
+/*
+* CSS公用样式表
+* @model: ATOMCSS 原子CSS设计模式
+* @programme：解决无意义的CSS命名,用于替换混乱的lin-css，flex fontSize color...
+* by JOE 124838235@qq.com
+*/
+
+ul,li {
+  list-style: none;
+}
+/*  布局  */
+.height-max {
+  height: 100% !important;
+}
+// flex
+.flex-warp {
+  flex-wrap: wrap;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-right {
+  margin-left: auto;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.space-between {
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+.item-center {
+  align-items: center;
+}
+.flex-center {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.flex-1 {
+  flex: 1;
+}
+.align-center {
+  text-align: center;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.font-no-warp {
+  white-space: nowrap;
+}
+/*  边距  */
+// 通用边距类
+.padding-none {
+  padding: 0!important;
+}
+.margin-none {
+  margin: 0!important;
+}
+
+// 内边距
+.padding-min {
+  padding: 12px;
+}
+.padding-lg {
+  padding: 20px;
+}
+.padding-base {
+  padding: 32px;
+}
+.padding-max {
+  padding: 64px;
+}
+
+
+.padding-top-tiny {
+  padding-top: 5px;
+}
+.padding-top-lt {
+  padding-top: 10px;
+}
+.padding-top-mini {
+  padding-top: 16px;
+}
+.padding-top-base {
+  padding-top: 32px;
+}
+.padding-top-max {
+  padding-top: 64px;
+}
+
+.padding-bottom-lt {
+  padding-bottom: 10px;
+}
+.padding-bottom-mini {
+  padding-bottom: 16px;
+}
+.padding-bottom-base {
+  padding-bottom: 32px;
+}
+.padding-bottom-max {
+  padding-bottom: 64px;
+}
+
+
+// 内边距百分比
+.padding-ptc-base {
+  padding: 12%;
+}
+
+// 外边距-top
+.margin-top-lt {
+  margin-top: 10px;
+}
+.margin-top-min {
+  margin-top: 12px;
+}
+.margin-top-base {
+  margin-top: 24px;
+}
+.margin-top-lg {
+  margin-top: 48px;
+}
+.margin-top-max {
+  margin-top: 62px;
+}
+.margin-top-ji {
+  margin-top: 84px;
+}
+
+// 外边距-left
+.margin-left-min {
+  margin-left: 16px;
+}
+.margin-left-base {
+  margin-left: 32px;
+}
+.margin-left-lg {
+  margin-left: 42px;
+}
+.margin-left-max {
+  margin-left: 62px;
+}
+
+// 外边距-bottom
+.margin-bottom-min {
+  margin-bottom: 16px;
+}
+.margin-bottom-base {
+  margin-bottom: 32px;
+}
+.margin-bottom-lg {
+  margin-bottom: 42px;
+}
+.margin-bottom-max {
+  margin-bottom: 62px;
+}
+
+// 外边距-right
+.margin-right-lt {
+  margin-right: 10px;
+}
+.margin-right-min {
+  margin-right: 16px;
+}
+.margin-right-base {
+  margin-right: 32px;
+}
+.margin-right-lg {
+  margin-right: 42px;
+}
+.margin-right-max {
+  margin-right: 62px;
+}
+
+// 通用边框
+.border-bottom {
+  border-bottom: #F4F4F4 solid 1px;
+}
+.border-right {
+  border-right: #F4F4F4 solid 1px;
+}
+/*  字体  */
+// 字体大小
+.font-12 {
+  font-size: 12px;
+}
+.font-14 {
+  font-size: 14px;
+}
+.font-16 {
+  font-size: 16px;
+}
+.font-18 {
+  font-size: 18px;
+}
+.font-22 {
+  font-size: 22px;
+}
+.font-24 {
+  font-size: 24px;
+}
+.font-28 {
+  font-size: 28px;
+}
+.font-32 {
+  font-size: 32px;
+}
+.font-38 {
+  font-size: 38px;
+}
+.font-60 {
+  font-size: 60px;
+}
+// 字体样式
+.font-lighter {
+  font-weight: lighter;
+}
+.font-bold {
+  font-weight: bold;
+}
+
+// 颜色
+.gray1 {
+  color: @Gray1
+}
+.gray2 {
+  color: @Gray2
+}
+.gray3 {
+  color: @Gray3
+}
+.gray4 {
+  color: @Gray4
+}
+.gray5 {
+  color: @Gray5
+}
+.gray6 {
+  color: @Gray6
+}
+.white {
+  color: @White
+}
+.black {
+  color: @Black
+}
+.red {
+  color: @Red;
+}
+.red2 {
+  color: @Red2;
+}
+.green1 {
+  color: @Green1
+}
+.green2 {
+  color: @Green2
+}
+
+.blue1 {
+  color: @Blue1
+}
+// 背景颜色
+.bg-red1 {
+  background-color: @Red
+}
+.bg-red2 {
+  background-color: @Red2
+}
+.bg-orange {
+  background-color: @Orange
+}
+.bg-yellow1 {
+  background-color: @Yellow1
+}
+.bg-green1 {
+  background-color: @Green1
+}
+.bg-green2 {
+  background-color: @Green2
+}
+// 文本对齐
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+// 过度类
+.transition {
+  transition: 0.3s all;
+}
+// 伪类事件
+.hover-opacity {
+  opacity: 1;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
+}
+// 文本行处理
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+// 滑过放大
+.hover-scale {
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(1);
+  }
+}
+
+// 漂浮
+.float-right {
+  float: right;
+}
+// 鼠标
+.pointer {
+  cursor: pointer;
+}
+
+// 布局外容器
+.layout-center {
+  width: 80%;
+  max-width: 1860px;
+  margin: 0 auto;
+  min-width: 1366px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+// 列表响应
+.layout-response {
+  width: 80%;
+  max-width: 1860px;
+  margin: 0 auto;
+  min-width: 1222px;
+}
+
+// 清除浮动
+.both:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+
+@media screen and  (min-width: 1440px){
+  .layout-response {
+    width: 1222px;
+  }
+}
+@media screen and  (min-width: 1920px){
+  .layout-response {
+    width: 1460px;
+  }
+}
+@media screen and  (min-width: 2560px){
+  .layout-response {
+    width: 1702px;
+  }
+}
+.box-shadow-bg {
+  background: @White;
+  border: 1px solid #F4F4F4;
+  /* new */
+  box-shadow: 0px 7px 11px rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+}
+.border-left {
+  border-left: #EBEEF5 solid 1px;
+}
+.table-border-row-none.el-table--border .el-table__cell, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
+  border-right: none!important;
+}
+.table-no-hover.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: transparent !important;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    height: 20px;
+    min-width: 40px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+   margin-left: 15px;
+    &.tag-blue {
+        background-color: #8CA7F0;
+    }
+    &.tag-green {
+        background-color: #67C23A;
+    }
+    &.tag-red {
+        background-color: #F56C6C;
+    }
+    &.tag-orange {
+        background-color: #E6A23C;
+    }
+    &.tag-purple {
+        background-color: #909399;
+    }
+    &.tag-gray {
+        background-color: #909399;
+    }
+    &.tag-yellow {
+        background-color: #E6A23C;
+    }
+    &.tag-cyan {
+        background-color: #909399;
+    }
+    &.tag-pink {
+        background-color: #909399;
+    }
+    &.tag-brown {
+        background-color: #909399;
+    }
+    &.tag-black {
+        background-color: #909399;
+    }
+    &.tag-white {
+        background-color: #909399;
+    }
+}
+
+
+
+// 自定义表单间距
+.custom-theme {
+  .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+    margin-bottom: 30px !important;
+    max-width: 440px;
+  }
+
+  .el-form-item__label {
+    padding-right: 25px !important;
+  }
+}
+
+.custom-theme-row {
+  .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+    margin-bottom: 30px !important;
+    max-width: 95%;
+  }
+
+  .el-form-item__label {
+    padding-right: 25px !important;
+  }
+}
+
+// el-input伪类单位
+.unit-yuan {
+  &:after {
+    display: block !important;
+    content: '元' !important;
+  }
+}
+.unit-zhe {
+  &:after {
+    display: block !important;
+    content: '折' !important;
+  }
+}
+.unit-bfb {
+  &:after {
+    display: block !important;
+    content: '%' !important;
+  }
+}
+
+
+// el-number-input 居左
+.el-input-left {
+  .el-input__inner {
+    text-align: left !important;
+  }
+}
+

@@ -1,0 +1,133 @@
+<html>
+<head>
+    <meta charSet="utf-8">
+    <style type="text/css">
+        body, html, canvas {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/three.js/r70/three.min.js"></script>
+<div style="width: 100%; height: 100%" id="stage"></div>
+<script>
+    setTimeout(()=> {
+        var renderer, scene, camera, geometry, mouse;
+
+        var ww = window.innerWidth,
+            wh = window.innerHeight;
+        console.log(window)
+
+        function init() {
+            renderer = new THREE.WebGLRenderer();
+
+            renderer.setSize(ww, wh);
+            renderer.setClearColor(0x000000);
+            document.getElementById("stage").appendChild(renderer.domElement);
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000000, 0.0010);
+
+            camera = new THREE.PerspectiveCamera(50, ww / wh, 0.1, 10000);
+            camera.position.set(0, 500, 1000);
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+
+            directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(0, 60, 600);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+            console.log(directionalLight.position);
+
+            var light = new THREE.AmbientLight(0x222222);
+            scene.add(light);
+
+            renderer.shadowMapEnabled = true;
+            renderer.shadowMapSoft = false;
+
+            renderer.shadowCameraNear = 3;
+            renderer.shadowCameraFar = camera.far;
+            renderer.shadowCameraFov = 50;
+
+            renderer.shadowMapBias = 0.0039;
+            renderer.shadowMapDarkness = 0.5;
+            renderer.shadowMapWidth = 1024;
+
+            mouse = new THREE.Vector2(0, 0);
+
+            document.addEventListener("mousemove", mouseMove);
+            document.addEventListener("mousewheel", mouseWheel);
+
+            city();
+
+        }
+
+        var particles = new THREE.Object3D();
+
+        var mouseWheel = function (e) {
+            camera.position.y += e.deltaY;
+        };
+
+        var mouseMove = function (e) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        };
+
+        var city = function () {
+
+            var city = new THREE.Object3D();
+
+            var length = 20;
+            for (var i = 0; i < length; i++) {
+                for (var j = 0; j < length; j++) {
+                    var size = parseInt(Math.random() * 30) + 20
+                    var height = parseInt(Math.random() * 200) + 50;
+                    var geometry = new THREE.BoxGeometry(size, height, size);
+                    var material = new THREE.MeshLambertMaterial({transparent: true});
+                    var cube = new THREE.Mesh(geometry, material);
+                    cube.castShadow = true;
+                    cube.receiveShadow = true;
+                    var x = (i * 55) - (length * 55 / 2);
+                    var z = (j * 55) - (length * 55 / 2);
+                    cube.position.set(x, height / 2, z);
+                    city.add(cube);
+                }
+            }
+
+            scene.add(city);
+
+            var geometry = new THREE.PlaneGeometry(length * 60, length * 60, 1);
+            var material = new THREE.MeshLambertMaterial({color: 0xff0000, side: THREE.DoubleSide});
+            var ground = new THREE.Mesh(geometry, material);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -1;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            render();
+
+        }
+
+        var render = function (a) {
+            requestAnimationFrame(render);
+
+
+            directionalLight.position.x = mouse.x * 1000;
+            directionalLight.position.y = mouse.y * 1000;
+
+
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+            renderer.render(scene, camera);
+        };
+
+        init();
+    },100)
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas 绘制星链图</title>
+    <style type="text/css">
+        body,html {
+            background:#213;
+            color:#342345;
+            height:100%;
+            overflow:hidden;
+        }
+        #paper {
+            border:#190C26 solid 20px;
+            background:#0D0514;
+            position:absolute;
+            margin:auto;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            width:800px;
+            height:600px;
+        }
+
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById('myCanvas');
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = 180;
+  const numNodes = 3;
+  const angleIncrement = (Math.PI * 2) / numNodes;
+
+  const colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'yellow', 'brown'];
+
+  for (let i = 0; i < numNodes; i++) {
+    const context = canvas.getContext('2d');
+    context.beginPath();
+
+    const angle = i * angleIncrement;
+    const nextAngle = (i + 1) * angleIncrement;
+
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    const nextX = centerX + radius * Math.cos(nextAngle);
+    const nextY = centerY + radius * Math.sin(nextAngle);
+
+    context.moveTo(x, y);
+    context.lineTo(nextX, nextY);
+
+    context.strokeStyle = colors[i];
+    context.lineWidth = 2;
+    context.stroke();
+  }
+</script>
+</body>
+</html>

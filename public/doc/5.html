@@ -1,0 +1,189 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style type="text/css">
+        body,html {
+            background:#213;
+            color:#342345;
+            height:100%;
+            overflow:hidden;
+        }
+        #paper {
+            border:#190C26 solid 20px;
+            background:#0D0514;
+            position:absolute;
+            margin:auto;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            width:800px;
+            height:600px;
+        }
+
+    </style>
+
+</head>
+<body>
+<canvas id="paper" width="800" height="600"></canvas>
+</body>
+<script>
+    "use strict";
+
+    // #### Simulation state configuration and updating ####################################################################
+
+    var circle = {
+        x: 400,
+        y: 300,
+        radius: 75,
+        radius2: 75*75
+    };
+
+    var points;
+
+    // Creates a new rope to manipulate.  This function is also called to reset after entering a bad state.
+    function createRope()
+    {
+        points = (function( x0, y0, x1, y1, steps )
+        {
+            var dx = (x1-x0)/steps;
+            var dy = (y1-y0)/steps;
+            var d = Math.sqrt( dx*dx + dy*dy );
+            var x = x0;
+            var y = y0;
+            var pts = [];
+
+            for( var i = 0 ; i < steps ; ++i, x+=dx, y+=dy )
+                pts.push({ x:x, y:y, lx:x, ly:y+10*Math.random(), distFromParent:d });
+            // The random variation in the value for "last y" gives the illusion of the rope snapping in to existence.
+
+            return pts;
+
+        })( 50, 50, 750, 50, 75 );
+    }
+    createRope();
+
+
+    function motion()
+    {
+        // Perform Verlet integration on each point, adding gravity along the y-axis.
+        for( var i = 0 ; i < points.length ; ++i ) {
+            var newX = points[i].x + (points[i].x - points[i].lx);
+            var newY = points[i].y + (points[i].y - points[i].ly) + 0.4;
+            points[i].lx = points[i].x;
+            points[i].ly = points[i].y;
+            points[i].x = newX;
+            points[i].y = newY;
+        }
+    }
+
+
+    function constraint()
+    {
+        // Apply the constraint algorithm several times to improve accuracy.
+        var iterations = 100;
+        while( iterations-- )
+            for( var i = 0 ; i < points.length ; ++i )
+            {
+                // The following block constrains pairs of points [i] and [i-1].
+                if( i >= 1 )
+                {
+                    // Compute distance between points.
+                    var distX    = points[i].x - points[i-1].x;
+                    var distY    = points[i].y - points[i-1].y;
+                    var distance = Math.sqrt( distX*distX + distY*distY );
+
+                    // Determine unit components along each axis.
+                    var distCompX = distX / distance;
+                    var distCompY = distY / distance;
+
+                    // Determine the total deviation from ideal distance and divide it by two to get the deviation of each point.
+                    var distDeviation = (distance - points[i].distFromParent) / 2;
+
+                    // Determine the x and y axis correction movement amounts for the points.
+                    var correctionX = distDeviation * distCompX;
+                    var correctionY = distDeviation * distCompY;
+
+                    // Correct the position of the pair by bringing each one half way to each other.
+                    if( !points[i-1].fixed ) {
+                        points[i-1].x += correctionX;
+                        points[i-1].y += correctionY;
+                    }
+                    if( !points[i].fixed ) {
+                        points[i].x -= correctionX;
+                        points[i].y -= correctionY;
+                    }
+                }
+
+                // Keep the points from going inside of the circle
+                var cdx = points[i].x - circle.x;
+                var cdy = points[i].y - circle.y;
+                if( cdx*cdx + cdy*cdy < circle.radius2 ) {
+                    var depthRatio = Math.sqrt( circle.radius2 / (cdx*cdx + cdy*cdy) );
+                    cdx *= depthRatio;
+                    cdy *= depthRatio;
+                    points[i].x = cdx + circle.x;
+                    points[i].y = cdy + circle.y;
+                }
+
+                // Keep the points inside the stage.
+                if( points[i].x < 0 ) points[i].x = 0;
+                if( points[i].y < 0 ) points[i].y = 0;
+                if( points[i].x > 800 ) points[i].x = 800;
+                if( points[i].y > 600 ) points[i].y = 600;
+            }
+    }
+
+    // Sometimes NaN happens when you jam it in to a corner or something... RESET
+    function failureCheck()
+    {
+        if( isNaN( points[0].x ) ) createRope();
+    }
+
+    // #### View rendering #################################################################################################
+
+    var ctx = document.getElementById('paper').getContext("2d");
+
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    function render()
+    {
+        ctx.clearRect(0,0,800,600);
+
+        ctx.strokeStyle = "#258C59";
+
+        ctx.beginPath();
+        ctx.arc( circle.x, circle.y, circle.radius - ctx.lineWidth, 0, Math.PI*2, true );
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.strokeStyle = "#724D27";
+
+        ctx.beginPath();
+        ctx.moveTo( points[0].x, points[0].y )
+        for( var i = 1 ; i < points.length ; ++i )
+            ctx.lineTo( points[i].x, points[i].y )
+        ctx.stroke();
+    }
+
+    // #### Main loop and user interface ###################################################################################
+
+    setInterval(function(){
+        failureCheck();
+        motion();
+        constraint();
+        render();
+    },25);
+
+    var paperElement = document.getElementById("paper");
+    document.onmousemove = function(e) {
+        circle.x = e.pageX - paperElement.offsetLeft - 20; // 20 is #paper's border-width.
+        circle.y = e.pageY - paperElement.offsetTop  - 20;
+    }
+
+</script>
+</html>
