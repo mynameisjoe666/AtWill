@@ -56,12 +56,11 @@ const routes = [
       path: '/demo2',
       name: 'demo2',
       component: demo2
+    },{
+      path: '/mapApp',
+      name: 'mapApp',
+      component: mapApp
     }]
-  },
-  {
-    path: '/mapApp',
-    name: 'mapApp',
-    component: mapApp
   },
   {
     path: '/',

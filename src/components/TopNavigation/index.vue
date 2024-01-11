@@ -68,7 +68,7 @@ export default {
           menuName: '工作台',
           icon: 'staff-panel',
           path: '/',
-          children: [{icon: 'staff-approval', name: 'JS在线编辑器', path: '/codeEdit',}]
+          children: [{icon: 'staff-approval', name: 'JS在线编辑器', path: '/codeEdit',}, {icon: 'staff-approval', name: '地图控制器', path: '/mapApp',}]
         },
         {menuName: '授权产品', icon: 'staff-info', path: '/licensedProducts'},
         {

@@ -3,6 +3,18 @@
   <div class="layout-center">
     <CSBreadcrumb/>
     <div class="box-shadow-bg padding-lg">
+      <div class="flex-row flex-warp">
+        <template v-for="item in 300">
+          <qrcode-vue
+              :key="item"
+              :size="size"
+              :value="value+item"
+              :logo="logo"
+              :bgColor="bgColor"
+              :fgColor="fgColor"
+          ></qrcode-vue>
+        </template>
+      </div>
       <el-row :gutter="20">
         <el-col :span="10">
           <positionTabs class="margin-bottom-min" :tabs="tabsList" v-model="tabActive"/>
@@ -76,11 +88,16 @@
 </template>
 
 <script>
-
+import qrcodeVue from 'qrcode-vue'
 export default {
   name: "myOrder",
   data() {
     return {
+      size: 80,
+      bgColor: '#fff',
+      fgColor: '#000',
+      value: {a:1,b:2,c:3},
+      logo: require('./WechatIMG1982.jpeg'),
       searchData: '',
       tabActive: 0,
       listLoading: false,
@@ -98,6 +115,9 @@ export default {
         price: '10,000.00',
       }, ]]
     }
+  },
+  components: {
+    qrcodeVue
   },
   computed:{
     orderState() {
