@@ -23,6 +23,7 @@ import myQuestion  from '../views/personalCenter/myQuestion/index'
 import myIntegral  from '../views/personalCenter/myIntegral/index'
 import extractIntegral  from '../views/personalCenter/myIntegral/extractIntegral'
 import testDemo  from '../views/testDemo/'
+import qrCode  from '../views/qrCode'
 import codeEdit  from '../views/testDemo/codeEdit/'
 import mapApp  from '../views/testDemo/mapApp/'
 import addCode  from '../views/testDemo/addCode/'
@@ -44,6 +45,10 @@ const routes = [
       path: '/codeEdit',
       name: 'codeEdit',
       component: codeEdit
+    },{
+      path: '/qrCode',
+      name: 'qrCode',
+      component: qrCode
     },{
       path: '/addCode',
       name: 'addCode',
